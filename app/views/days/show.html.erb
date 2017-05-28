@@ -1,0 +1,85 @@
+
+<div class="row">
+  <div class="col-md-offset-2 col-md-8 text-center">
+    <h1 style="margin-bottom: 0;"><%= l @day.date, format: :day %></h1>
+    <h2 style="margin-top: 0;"><%= l @day.date, format: :month %></p></h2>
+
+    <% if logged_in? %>
+      <button class="btn btn-success" data-toggle="collapse" data-target="#foo">Dodaj własne wydarzenie</button><br><br>
+
+      <div id="foo" class="collapse">
+        <%= form_for([@day, @day.happenings.build]) do |f| %>
+            <p>
+              <%= f.label :year %><br>
+              <%= f.text_field :year %>
+            </p>
+            <p>
+              <%= f.label :body %><br>
+              <%= f.text_area :body %>
+            </p>
+              <%= f.hidden_field :user_id, value: current_user[:id] %>
+            <p>
+              <%= f.submit "Utwórz wydarzenie", class: "btn btn-primary" %>
+            </p>
+        <% end %>
+      </div>
+
+        <br>
+        <hr style="border: none; height: 1px; background-color: black;">
+        <p><h3><b>Zdarzyło się:</b></h3></p>
+        <hr style="border: none; height: 1px; background-color: black;">
+        <br>
+
+      <div>
+        <% user_happenings = @day.happenings.where(:user_id => current_user[:id]).order(:year)
+
+            user_happenings.empty? %> <p><strong>Twoje wydarzenia:</strong></p>
+        <%  user_happenings.each do |user_happening|
+            if user_happening.day == @day %>
+              <p><strong><%= user_happening.year %> r.</strong><br>
+                <small> (<%= distance_of_time_in_words_to_now(Date.new(user_happening.year,@day.date.month,@day.date.day)) %> temu)</small></p>
+              <p style="margin-bottom: 0em;"><%= user_happening.body %></p>
+              <small><%= link_to 'Usuń wydarzenie', [user_happening.day, user_happening],
+                            method: :delete,
+                            data: { confirm: 'Jesteś pewien?' } %></small><br><br>
+            <% end %>
+        <% end %>
+      </div>
+        <p><strong>Wydarzenia z Polski:</strong></p>
+    <% else %>
+        <br>
+        <hr style="border: none; height: 1px; background-color: black;">
+        <p><h2><b>Zdarzyło się:</b></h2></p>
+        <hr style="border: none; height: 1px; background-color: black;">
+        <br>
+    <% end %>
+
+   <!-- WYDARZENIA Z WIKIPEDII -->
+    <% wiki_happenings.each_with_index do |happening, index|
+      happening_year = happening.at('a').text
+    %>
+      <p>
+        <strong><%= happening_year %> r.</strong><br>
+        <small> (<%= distance_of_time_in_words_to_now(Date.new(Integer(happening_year),@day.date.month,@day.date.day)) %> temu)</small>
+      </p>
+      <!-- Jeżeli więcej niż jedno wydarzenie w roku -->
+      <% if happening.css('li').length > 0
+          happening.css('li').each do |j|
+          %>
+            <p><%= j.text %></p>
+        <%
+          end
+        else
+          # Usuwanie daty
+          happening.at('a').remove
+        %>
+          <!-- Usuwanie myślnika -->
+          <p><%= happening.text[2..-1].gsub('\n', '') %></p>
+      <% end %>
+      <% if index != wiki_happenings.size - 1 %>
+        <hr style="border: none; height: 1px; background-color: black; width: 30%;">
+      <% end %>
+    <% end %>
+
+  </div>
+</div>

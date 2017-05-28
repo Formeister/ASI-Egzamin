@@ -1,0 +1,13 @@
+<% provide(:title, 'Użytkownicy') %>
+
+<div class="row">
+  <div class="col-md-offset-4 col-md-4 text-center">
+    <h2>Użytkownicy</h2>
+
+    <ul class="col-md-offset-1 users text-left">
+      <%= render @users %>
+    </ul>
+
+    <%= will_paginate %>
+  </div>
+</div>

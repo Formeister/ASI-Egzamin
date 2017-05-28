@@ -1,0 +1,16 @@
+<h1>Days</h1>
+
+<table>
+  <tr>
+    <th>Day</th>
+    <th>Text</th>
+  </tr>
+
+  <% @days.each do |day| %>
+      <tr>
+        <td><%= day.date %></td>
+        <td><%= day.text %></td>
+        <td><%= link_to 'Show', day_path(day) %></td>
+      </tr>
+  <% end %>
+</table>

@@ -1,0 +1,104 @@
+
+<div class="row">
+  <div class="col-md-offset-2 col-md-8 text-center">
+    <h1><%= l @day.date, format: :day %></h1>
+    <p><%= l @day.date, format: :month %></p>
+
+    <% if logged_in? %>
+      <button class="btn btn-default" data-toggle="collapse" data-target="#foo">Dodaj wydarzenie</button><br><br>
+
+      <div id="foo" class="collapse">
+        <%= form_for([current_user, current_user.user_happenings.build]) do |f| %>
+            <p>
+              <%= f.label :year %><br>
+              <%= f.text_field :year %>
+            </p>
+            <p>
+              <%= f.label :body %><br>
+              <%= f.text_area :body %>
+            </p>
+              <%= f.hidden_field :day_id, value: @day.id %>
+            <p>
+              <%= f.submit "Utwórz wydarzenie" %>
+            </p>
+        <% end %>
+      </div>
+
+      <p><strong>Zdarzyło się:</strong></p>
+
+      <div class="col-md-offset-1 text-left">
+        <% current_user.user_happenings.order(:year).each do |user_happening|
+          if user_happening.day_id == @day.id %>
+            <p><strong><%= user_happening.year %>r.</strong></p>
+            <p><%= user_happening.body %></p>
+            <small><%= link_to 'Usuń wydarzenie', [user_happening.user, user_happening],
+                          method: :delete,
+                          data: { confirm: 'Jesteś pewien?' } %></small>
+          <% end %>
+        <% end %>
+      </div>
+      <hr>
+    <% else %>
+        <p><strong>Zdarzyło się:</strong></p>
+    <% end %>
+
+      <%
+      # Wydarzenia z Wikipedii
+
+        search_data = l @day.date, format: :day_month
+
+        client = MediawikiApi::Client.new "https://pl.wikipedia.org/w/api.php"
+
+        foo = client.action :parse, page: search_data, section: 2, prop: 'text'
+
+        input = foo.data["text"].to_s
+
+        document = Nokogiri::HTML.fragment(input)
+
+        # Tworzenie listy wydarzeń
+
+        document.css("sup").remove
+        document.css("ol").remove
+
+        lis = document.xpath('ul/li[not(@id)]')
+
+        lis_amount = lis.length
+
+        li_date =  lis[1].at('a').text
+
+        li_happening =  lis[1].css('li')
+
+
+
+        lis_amount.times do |i|
+      %>
+
+          <p class="text-center"><b><%= lis[i].at('a').text %></b></p>
+          <%
+          # Jezeli wiecej niz jedno wydarzenie
+          if lis[i].css('li').length > 0
+            lis[i].css('li').each do |j|
+            %>
+            <p><%= j.text %></p>
+            <%
+          end
+          else
+            # Usuwanie daty
+            lis[i].at('a').remove
+
+            %>
+            <!-- Usuwanie myślnika -->
+            <p><%= lis[i].text[2..-1].gsub('\n', '') %></p>
+
+            <%
+          end
+          end
+          %>
+
+    <%= lis %><br><br><br>
+    <%= lis_amount %>
+
+
+
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<% if @user.errors.any? %>
+    <div id="error_explanation" style="padding-bottom: 2em;">
+      <div class="alert alert-danger">
+        Rejestracja zakończona niepowodzeniem, wystąpiły następujące błedy:
+      </div>
+      <ul class="list-unstyled">
+        <% @user.errors.full_messages.each do |msg| %>
+            <li>Pole <%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
