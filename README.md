@@ -20,7 +20,7 @@
     <td>5.0.2</td>
     <td>Postgres</td>
     <td>Bootstrap</td>
-    <td>mediawiki_api, rails-i18n, bcrypt-ruby, faker, will_paginate</td>
+    <td>mediawiki_api, rails-i18n, bcrypt-ruby, faker</td>
   </tr>
 </table>
 
@@ -31,5 +31,4 @@
 <li> <strong>rails-i18n</strong> - Internacjonalizacja, spolszczenie wyświetlania dat, paginacji, użytkowników</li>
 <li> <strong>bcrypt-ruby</strong> - Algorytm haszujący dla haseł użytkowników</li>
 <li> <strong>faker</strong> - Generator danych, tworzenie użytkowników wraz z przypisanymi im zdarzeniami</li>
-<li> <strong>will_paginate</strong> - Paginacja przy wyświetlaniu listy użytkowników</li>
 </ul>
