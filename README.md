@@ -1,4 +1,4 @@
-<h2>Bartosz Formela (zaliczenie)</h2>
+<h2>Bartosz Formela (egzamin)</h2>
 
 <h4>ZdarzyłoSięDzisiaj</h4>
 
