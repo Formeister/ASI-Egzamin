@@ -1,8 +1,15 @@
 class HappeningsController < ApplicationController
   def create
     @day = Day.find(params[:day_id])
-    @happening = @day.happenings.create(happening_params)
-    redirect_to day_path(@day)
+    @happening = @day.happenings.new(happening_params)
+    puts "BLABLABLABA"
+    if @happening.save
+      flash[:success] = "Wydarzenie zostało dodane"
+      redirect_to day_path(@day)
+    else
+      flash[:danger] = "Wprowadzone dane są błędne"
+      redirect_to day_path(@day)
+    end
   end
 
   def destroy

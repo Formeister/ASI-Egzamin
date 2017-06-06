@@ -5,6 +5,11 @@
     <h2 style="margin-top: 0;"><%= l @day.date, format: :month %></p></h2>
 
     <% if logged_in? %>
+
+      <div class="row text-center">
+        <div class="calendar-picker center-block" style="width: 250px; padding: 1em 0em 2em 0em;" data-date=<%= @day.date.strftime("%d/%m/") + Time.current.year.to_s %>></div>
+      </div>
+
       <button class="btn btn-success" data-toggle="collapse" data-target="#foo">Dodaj własne wydarzenie</button><br><br>
 
       <div id="foo" class="collapse">
@@ -31,18 +36,20 @@
         <br>
 
       <div>
-        <% user_happenings = @day.happenings.where(:user_id => current_user[:id]).order(:year)
+        <% user_happenings = @day.happenings.where(:user_id => current_user[:id]).order(:year) %>
 
-            user_happenings.empty? %> <p><strong>Twoje wydarzenia:</strong></p>
-        <%  user_happenings.each do |user_happening|
-            if user_happening.day == @day %>
-              <p><strong><%= user_happening.year %> r.</strong><br>
-                <small> (<%= distance_of_time_in_words_to_now(Date.new(user_happening.year,@day.date.month,@day.date.day)) %> temu)</small></p>
-              <p style="margin-bottom: 0em;"><%= user_happening.body %></p>
-              <small><%= link_to 'Usuń wydarzenie', [user_happening.day, user_happening],
-                            method: :delete,
-                            data: { confirm: 'Jesteś pewien?' } %></small><br><br>
-            <% end %>
+        <% if user_happenings.any? %>
+          <p><strong>Twoje wydarzenia:</strong></p>
+        <% end %>
+        <% user_happenings.each do |user_happening|
+          if user_happening.day == @day %>
+            <p><strong><%= user_happening.year %> r.</strong><br>
+              <small> (<%= distance_of_time_in_words_to_now(Date.new(user_happening.year,@day.date.month,@day.date.day)) %> temu)</small></p>
+            <p style="margin-bottom: 0em;"><%= user_happening.body %></p>
+            <small><%= link_to 'Usuń wydarzenie', [user_happening.day, user_happening],
+                          method: :delete,
+                          data: { confirm: 'Jesteś pewien?' } %></small><br><br>
+          <% end %>
         <% end %>
       </div>
         <p><strong>Wydarzenia z Polski:</strong></p>

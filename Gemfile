@@ -64,8 +64,15 @@ gem 'faker', '~> 1.7', '>= 1.7.3'
 gem 'will_paginate', '~> 3.1', '>= 3.1.5'
 gem 'bootstrap-will_paginate', '~> 0.0.11'
 
-#mediawiki
+# mediawiki
 gem 'mediawiki_api', '~> 0.7.1'
+
+# Date Picker
+gem 'bootstrap-datepicker-rails'
+
+# JavaScript
+gem 'coffee-script-source', '~> 1.12', '>= 1.12.2'
+gem 'execjs', '~> 2.7'
 
 # Use sqlite3 as the database for Active Record
 group :development do

@@ -2,6 +2,11 @@
   <div class="col-md-4 col-md-offset-4 text-center" style="padding-top: 2em;">
     <h1><%= current_day %></h1>
     <p><%= current_month %></p>
-    <p><%= link_to "Sprawdź wydarzenia", day_path(get_day), class: "btn btn-info", role: "button" %></p>
+    <p><%= link_to "Sprawdź wydarzenia", day_path(get_day(current_date)), class: "btn btn-info", role: "button" %></p>
   </div>
+</div>
+
+
+<div class="row text-center">
+  <div class="calendar-picker center-block" style="width: 250px; padding-top: 4em" data-date=<%= current_date.strftime("%d/%m/%Y") %>></div>
 </div>
