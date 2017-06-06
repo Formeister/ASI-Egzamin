@@ -31,4 +31,5 @@
 <li> <strong>rails-i18n</strong> - Internacjonalizacja, spolszczenie wyświetlania dat, paginacji, użytkowników</li>
 <li> <strong>bcrypt-ruby</strong> - Algorytm haszujący dla haseł użytkowników</li>
 <li> <strong>faker</strong> - Generator danych, tworzenie użytkowników wraz z przypisanymi im zdarzeniami</li>
+<li> <strong>bootstrap-datepicker-rails</strong> - Kalendarz do wyboru konkretnego dnia w roku</li>
 </ul>
