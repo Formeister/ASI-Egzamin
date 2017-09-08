@@ -5,7 +5,7 @@
 <p>Aplikacja wyświetlająca informacje o aktualnym dniu oraz o powiązanych z nim wydarzeniach.<br>
    Każdy zarejestrowany użytkownik posiada możliwość spersonalizowania konkretnych dni i zapisywania wydarzeń z własnego życia.</p>
 
-- [Link do wdrożonej na zewnętrznym serwerze aplikacji](https://zdarzylosiedzisiaj.herokuapp.com)
+- [Link do wdrożonej na zewnętrznym serwerze aplikacji](https://zdarzylosiedzisiaj2.herokuapp.com)
 
 <table>
   <tr>
